@@ -1,0 +1,32 @@
+---
+name: golang-go
+description: the Go programming language
+homepage: https://golang.org/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://dl.google.com/go/go{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  arch-mapping:
+    "386": i386
+    amd64: amd64
+    arm64: arm64
+    armv6l: armel
+
+control:
+  depends:
+  - libc6
+  description:
+  section: devel
+
+install:
+  upstream:
+    /usr/local:
+    - pattern: go/*
+
+links:
+  /usr/bin/go: /usr/local/go/bin/go
+  /usr/bin/godoc: /usr/local/go/bin/godoc
+  /usr/bin/gofmt: /usr/local/go/bin/gofmt
+
+# vim: ts=2 sw=2 et

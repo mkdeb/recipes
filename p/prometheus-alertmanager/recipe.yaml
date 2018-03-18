@@ -1,0 +1,49 @@
+---
+name: prometheus-alertmanager
+description: Prometheus alerts handler and deliverer
+homepage: https://prometheus.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/prometheus/alertmanager/releases/download/v{{ .Version }}/alertmanager-{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    "386": i386
+    amd64: amd64
+    arm64: arm64
+    armv5: armel
+    armv6: armel
+    armv7: armhf
+
+control:
+  depends:
+  - libc6
+  - daemon
+  description: |
+    The Alertmanager handles alerts sent by client applications such as the
+    Prometheus server. It takes care of deduplicating, grouping, and routing
+    them to the correct receiver integrations such as email, PagerDuty, or
+    OpsGenie. It also takes care of silencing and inhibition of alerts.
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-alertmanager
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-alertmanager
+      conffile: true
+  upstream:
+    /etc/prometheus:
+    - pattern: simple.yml
+      rename: alertmanager.yml
+      conffile: true
+    /usr/bin:
+    - pattern: alertmanager
+    - pattern: amtool
+
+# vim: ts=2 sw=2 et

@@ -1,0 +1,6 @@
+# Defaults for prometheus initscript
+# sourced by /etc/init.d/prometheus
+# installed at /etc/default/prometheus by the maintainer scripts
+
+# Arguments for prometheus daemon
+DAEMON_ARGS="--config.file=/etc/prometheus/prometheus.yml --storage.local.path=/var/lib/prometheus/metrics"

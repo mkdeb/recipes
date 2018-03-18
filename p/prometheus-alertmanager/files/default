@@ -1,0 +1,5 @@
+# Defaults for prometheus-alertmanager initscript
+# sourced by /etc/init.d/prometheus-alertmanager
+
+# Arguments for prometheus-alertmanager daemon
+DAEMON_ARGS="--config.file=/etc/prometheus/alertmanager.yml"
