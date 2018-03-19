@@ -1,4 +1,6 @@
 ---
+version: 1
+
 name: prometheus
 description: monitoring system and time series database
 homepage: https://prometheus.io/

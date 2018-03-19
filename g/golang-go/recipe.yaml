@@ -1,4 +1,6 @@
 ---
+version: 1
+
 name: golang-go
 description: the Go programming language
 homepage: https://golang.org/
