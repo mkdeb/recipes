@@ -14,7 +14,7 @@ To initialize or update your local copy of the recipes, run:
 
 Then, to build a package, run:
 
-    mkdeb build foo:amd64@1.2.3
+    mkdeb build foo:amd64=1.2.3
 
 Where `foo` is the package name, `amd64` the desired architecture and `1.2.3` the version number of upstream release.
 
