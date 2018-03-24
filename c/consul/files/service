@@ -1,0 +1,13 @@
+[Unit]
+Description=service discovery and configuration tool
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/consul agent -config-dir=/etc/consul.d -config-dir=/etc/consul.d/services -data-dir=/var/lib/consul
+ExecReload=/usr/bin/consul reload
+User=consul
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

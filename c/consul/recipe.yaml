@@ -1,0 +1,62 @@
+---
+version: 1
+
+name: consul
+description: service discovery and configuration tool
+homepage: https://consul.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://releases.hashicorp.com/consul/{{ .Version }}/consul_{{ .Version }}_linux_{{ .Arch }}.zip
+  arch-mapping:
+    "386": i386
+    amd64: amd64
+    arm64: arm64
+    arm: armel
+
+control:
+  depends:
+  - libc6
+  - procps
+  description: |
+    Consul is a tool for service discovery and configuration. Consul is
+    distributed, highly available, and extremely scalable.
+
+    Consul provides several key features:
+
+     * Service Discovery: Consul makes it simple for services to register
+       themselves and to discover other services via a DNS or HTTP interface.
+       External services such as SaaS providers can be registered as well
+
+     * Health Checking: Health Checking enables Consul to quickly alert
+       operators about any issues in a cluster. The integration with service
+       discovery prevents routing traffic to unhealthy hosts and enables
+       service level circuit breakers
+
+     * Key/Value Storage: A flexible key/value store enables storing dynamic
+       configuration, feature flagging, coordination, leader election and
+       more. The simple HTTP API makes it easy to use anywhere
+
+     * Multi-Datacenter: Consul is built to be datacenter aware, and can
+       support any number of regions without complex configuration.
+  section: devel
+
+install:
+  recipe:
+    /etc/init.d:
+    - pattern: init
+      rename: consul
+      conffile: true
+    /lib/systemd/system:
+    - pattern: service
+      rename: consul.service
+  upstream:
+    /usr/bin:
+    - pattern: consul
+
+dirs:
+- /etc/consul.d/services
+- /var/lib/consul
+
+# vim: ts=2 sw=2 et
