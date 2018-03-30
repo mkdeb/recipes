@@ -19,8 +19,9 @@ source:
 
 control:
   depends:
-  - libc6
+  - adduser
   - daemon
+  - libc6
   description: |
     The Alertmanager handles alerts sent by client applications such as the
     Prometheus server. It takes care of deduplicating, grouping, and routing
