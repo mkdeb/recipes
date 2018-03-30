@@ -1,0 +1,42 @@
+---
+version: 1
+
+name: nodejs
+description: Node.js JavaScript runtime
+homepage: https://nodejs.org/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://nodejs.org/dist/v{{ .Version }}/node-v{{ .Version }}-linux-{{ .Arch }}.tar.xz
+  strip: 1
+  arch-mapping:
+    amd64: x64
+    arm64: arm64
+    armel: armv6l
+    armhf: armv7l
+
+control:
+  conflicts:
+  - nodejs-legacy
+  depends:
+  - libc6
+  - libstdc++6
+  provides:
+  - nodejs-legacy
+  description: |
+    Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+  section: web
+
+install:
+  upstream:
+    /usr/local/node:
+    - pattern: "*"
+
+links:
+  /usr/bin/node: /usr/local/node/bin/node
+  /usr/bin/nodejs: /usr/local/node/bin/node
+  /usr/bin/npm: /usr/local/node/bin/npm
+  /usr/bin/npx: /usr/local/node/bin/npx
+
+# vim: ts=2 sw=2 et
