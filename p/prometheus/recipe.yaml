@@ -11,12 +11,11 @@ source:
   url: https://github.com/prometheus/prometheus/releases/download/v{{ .Version }}/prometheus-{{ .Version }}.linux-{{ .Arch }}.tar.gz
   strip: 1
   arch-mapping:
-    "386": i386
     amd64: amd64
     arm64: arm64
-    armv5: armel
-    armv6: armel
-    armv7: armhf
+    armel: armv6
+    armhf: armv7
+    i386: "386"
 
 control:
   depends:

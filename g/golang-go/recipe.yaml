@@ -10,10 +10,10 @@ maintainer: Recipes Maintainers <recipes@mkdeb.sh>
 source:
   url: https://dl.google.com/go/go{{ .Version }}.linux-{{ .Arch }}.tar.gz
   arch-mapping:
-    "386": i386
     amd64: amd64
     arm64: arm64
-    armv6l: armel
+    armel: armv6l
+    i386: "386"
 
 control:
   depends:

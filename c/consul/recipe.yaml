@@ -10,10 +10,10 @@ maintainer: Recipes Maintainers <recipes@mkdeb.sh>
 source:
   url: https://releases.hashicorp.com/consul/{{ .Version }}/consul_{{ .Version }}_linux_{{ .Arch }}.zip
   arch-mapping:
-    "386": i386
     amd64: amd64
     arm64: arm64
-    arm: armel
+    armel: arm
+    i386: "386"
 
 control:
   depends:
