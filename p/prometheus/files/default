@@ -3,4 +3,4 @@
 # installed at /etc/default/prometheus by the maintainer scripts
 
 # Arguments for prometheus daemon
-DAEMON_ARGS="--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/var/lib/prometheus/metrics"
+DAEMON_ARGS="--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/var/lib/prometheus/metrics --web.listen-address=localhost:9090"
