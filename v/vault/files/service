@@ -1,0 +1,13 @@
+[Unit]
+Description=secrets management tool
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/vault server -config=/etc/vault/vault.hcl -log-level=info
+User=vault
+Restart=always
+LimitMEMLOCK=infinity
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,77 @@
+---
+version: 1
+
+name: vault
+description: secrets management tool
+homepage: https://www.vaultproject.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://releases.hashicorp.com/vault/{{ .Version }}/vault_{{ .Version }}_linux_{{ .Arch }}.zip
+  arch-mapping:
+    amd64: amd64
+    arm64: arm64
+    armel: arm
+    i386: "386"
+
+control:
+  depends:
+  - libc6
+  - procps
+  description: |
+    Vault secures, stores, and tightly controls access to tokens,
+    passwords, certificates, API keys, and other secrets in
+    modern computing. Vault handles leasing, key revocation, key
+    rolling, and auditing. Through a unified API, users can access
+    an encrypted Key/Value store and network encryption-as-a-service,
+    or generate AWS IAM/STS credentials, SQL/NoSQL databases, X.509
+    certificates, SSH credentials, and more.
+
+    Vault provides several key features:
+
+     * Secret Storage: Vault can store your existing secrets, or it
+       can dynamically generate new secrets to control access to
+       third-party resources or provide time-limited credentials for
+       your infrastructure. All data that Vault stores is encrypted.
+       Any dynamically-generated secrets are associated with leases,
+       and Vault will automatically revoke these secrets after the
+       lease period ends. Access control policies provide strict
+       control over who can access what secrets. 
+
+     * Key Rolling: Secrets you store within Vault can be updated at
+       any time. If using Vault's encryption-as-a-service
+       functionality, the keys used can be rolled to a new key version
+       at any time, while retaining the ability to decrypt values
+       encrypted with past key versions. For dynamically-generated
+       secrets, configurable maximum lease lifetimes ensure that key
+       rolling is easy to enforce.
+
+     * Audit Logs: Vault stores a detailed audit log of all
+       authenticated client interaction: authentication, token
+       creation, secret access, secret revocation, and more. Audit
+       logs can be sent to multiple backends to ensure redundant
+       copies. Paired with Vault's strict leasing policies, operators
+       can easily trace the lifetime and origin of any secret.
+  section: devel
+
+install:
+  recipe:
+    /etc/init.d:
+    - pattern: init
+      rename: vault
+      conffile: true
+    /lib/systemd/system:
+    - pattern: service
+      rename: vault.service
+    /etc/vault:
+    - pattern: vault.hcl
+  upstream:
+    /usr/bin:
+    - pattern: vault
+
+dirs:
+- /etc/vault
+- /var/lib/vault
+
+# vim: ts=2 sw=2 et
