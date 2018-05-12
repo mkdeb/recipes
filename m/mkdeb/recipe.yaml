@@ -1,0 +1,31 @@
+---
+version: 1
+
+name: mkdeb
+description: the Debian packaging helper
+homepage: https://mkdeb.sh/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/mkdeb/mkdeb/releases/download/{{ .Version }}/mkdeb_{{ .Version }}_linux_{{ .Arch }}.tar.gz
+  arch-mapping:
+    amd64: amd64
+    arm64: arm64
+    armel: arm
+    i386: "386"
+
+control:
+  depends:
+  - ca-certificates
+  - libc6
+  description: |
+    mkdeb provides a convenient way to generate Debian packages from upstream release archives.
+  section: devel
+
+install:
+  upstream:
+    /usr/bin:
+    - pattern: mkdeb
+
+# vim: ts=2 sw=2 et
