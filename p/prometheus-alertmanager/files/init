@@ -20,7 +20,7 @@ GROUP="prometheus"
 
 [ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
-DAEMON=/usr/bin/$NAME
+DAEMON=/usr/bin/alertmanager
 
 LOGFILE="/var/log/prometheus/alertmanager.log"
 PIDFILE="/var/run/prometheus/alertmanager.pid"
