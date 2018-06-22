@@ -1,0 +1,5 @@
+# Defaults for prometheus-node-exporter initscript
+# sourced by /etc/init.d/prometheus-node-exporter
+
+# Arguments for prometheus-node-exporter daemon
+DAEMON_ARGS=""
