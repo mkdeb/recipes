@@ -40,4 +40,9 @@ case "$1" in
     ;;
 esac
 
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
+    update-rc.d prometheus defaults >/dev/null
+    invoke-rc.d prometheus start || exit $?
+fi
+
 exit 0

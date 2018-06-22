@@ -48,4 +48,8 @@ install:
     - pattern: alertmanager
     - pattern: amtool
 
+dirs:
+- /var/lib/prometheus/alertmanager
+- /var/log/prometheus
+
 # vim: ts=2 sw=2 et

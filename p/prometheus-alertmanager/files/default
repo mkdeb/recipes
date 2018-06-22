@@ -2,4 +2,4 @@
 # sourced by /etc/init.d/prometheus-alertmanager
 
 # Arguments for prometheus-alertmanager daemon
-DAEMON_ARGS="--config.file=/etc/prometheus/alertmanager.yml"
+DAEMON_ARGS="--config.file=/etc/prometheus/alertmanager.yml --storage.path=/var/lib/prometheus/alertmanager"

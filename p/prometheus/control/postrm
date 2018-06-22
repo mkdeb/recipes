@@ -32,4 +32,8 @@ case "$1" in
     ;;
 esac
 
+if [ "$1" = "purge" ]; then
+    update-rc.d prometheus remove >/dev/null
+fi
+
 exit 0

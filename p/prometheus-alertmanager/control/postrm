@@ -31,4 +31,8 @@ case "$1" in
     ;;
 esac
 
+if [ "$1" = "purge" ]; then
+    update-rc.d prometheus-alertmanager remove >/dev/null
+fi
+
 exit 0
