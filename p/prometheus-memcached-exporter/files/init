@@ -9,12 +9,12 @@ fi
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Prometheus exporter for machine metrics
-# Description:       Prometheus exporter for machine metrics
+# Short-Description: Prometheus exporter for memcached
+# Description:       Prometheus exporter for memcached
 ### END INIT INFO
 
 NAME="prometheus-memcached-exporter"
-DESC="Prometheus exporter for machine metrics"
+DESC="Prometheus exporter for memcached"
 USER="prometheus"
 GROUP="prometheus"
 

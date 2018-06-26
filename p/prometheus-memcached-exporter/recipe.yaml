@@ -2,7 +2,7 @@
 version: 1
 
 name: prometheus-memcached-exporter
-description: Prometheus exporter for machine metrics
+description: Prometheus exporter for memcached
 homepage: https://prometheus.io/
 
 maintainer: Recipes Maintainers <recipes@mkdeb.sh>
