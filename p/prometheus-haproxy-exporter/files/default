@@ -1,0 +1,5 @@
+# Defaults for prometheus-haproxy-exporter initscript
+# sourced by /etc/init.d/prometheus-haproxy-exporter
+
+# Arguments for prometheus-haproxy-exporter daemon
+DAEMON_ARGS=""

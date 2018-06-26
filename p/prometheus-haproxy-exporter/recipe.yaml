@@ -1,0 +1,48 @@
+---
+version: 1
+
+name: prometheus-haproxy-exporter
+description: Prometheus exporter for machine metrics
+homepage: https://prometheus.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/prometheus/haproxy_exporter/releases/download/v{{ .Version }}/haproxy_exporter-{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+    arm64: arm64
+    armel: armv6
+    armhf: armv7
+    i386: "386"
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+  description: |
+    Simple server that scrapes HAProxy stats and exports them via HTTP for
+    Prometheus consumption
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-haproxy-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-haproxy-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: haproxy_exporter
+
+dirs:
+- /var/lib/prometheus/haproxy-exporter
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et
