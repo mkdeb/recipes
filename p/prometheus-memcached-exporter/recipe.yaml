@@ -1,0 +1,48 @@
+---
+version: 1
+
+name: prometheus-memcached-exporter
+description: Prometheus exporter for memcached
+homepage: https://prometheus.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/prometheus/memcached_exporter/releases/download/v{{ .Version }}/memcached_exporter-{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+    arm64: arm64
+    armel: armv6
+    armhf: armv7
+    i386: "386"
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+  description: |
+    Prometheus exporter for memcached,
+    written in Go with pluggable metric collectors.
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-memcached-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-memcached-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: memcached_exporter
+
+dirs:
+- /var/lib/prometheus/memcached-exporter
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et

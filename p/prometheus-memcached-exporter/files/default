@@ -1,0 +1,5 @@
+# Defaults for prometheus-memcached-exporter initscript
+# sourced by /etc/init.d/prometheus-memcached-exporter
+
+# Arguments for prometheus-memcached-exporter daemon
+DAEMON_ARGS=""
