@@ -1,0 +1,47 @@
+---
+version: 1
+
+name: prometheus-cassandra-exporter
+description: Prometheus exporter for Apache Cassandra metrics
+homepage: https://prometheus.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/criteo/cassandra_exporter/releases/download/{{ .Version }}/cassandra_exporter-{{ .Version }}-all.jar
+  type: file
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - java7-runtime | java7-runtime-headless | java8-runtime | java8-runtime-headless
+  - libc6
+  description: |
+    Cassandra exporter is a standalone application which exports Apache
+    Cassandra metrics through a prometheus friendly endpoint.
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-cassandra-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-cassandra-exporter
+      conffile: true
+    /etc/prometheus/cassandra-exporter:
+    - pattern: config.yml
+      conffile: true
+  upstream:
+    /usr/share/prometheus/cassandra-exporter:
+    - pattern: "cassandra_exporter-*.jar"
+      rename: cassandra_exporter.jar
+
+dirs:
+- /var/lib/prometheus/cassandra-exporter
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et

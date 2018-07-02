@@ -1,0 +1,5 @@
+# Defaults for prometheus-cassandra-exporter initscript
+# sourced by /etc/init.d/prometheus-cassandra-exporter
+
+# Arguments for prometheus-cassandra-exporter daemon
+DAEMON_ARGS="-jar /usr/share/prometheus/cassandra-exporter/cassandra_exporter.jar /etc/prometheus/cassandra-exporter/config.yml"
