@@ -41,6 +41,8 @@ install:
       conffile: true
   upstream:
     /etc/prometheus:
+    - pattern: alertmanager.yml
+      conffile: true
     - pattern: simple.yml
       rename: alertmanager.yml
       conffile: true
