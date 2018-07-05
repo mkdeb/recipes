@@ -1,0 +1,5 @@
+# Defaults for prometheus-simplehttp-exporter initscript
+# sourced by /etc/init.d/prometheus-simplehttp-exporter
+
+# Arguments for prometheus-simplehttp-exporter daemon
+DAEMON_ARGS="--config.file /etc/prometheus/simplehttp-exporter/config.yaml"
