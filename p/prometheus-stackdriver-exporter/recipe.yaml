@@ -14,7 +14,7 @@ source:
 control:
   depends:
   - adduser
-  - daemon
+  - dpkg
   - libc6
 
   description: |
