@@ -1,0 +1,43 @@
+---
+version: 1
+
+name: prometheus-stackdriver-exporter
+description: Prometheus exporter for stackdriver
+homepage: https://prometheus.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/frodenas/stackdriver_exporter/releases/download/v{{ .Version }}/stackdriver_exporter-{{ .Version }}.linux-amd64.tar.gz
+  strip: 1
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+
+  description: |
+    Prometheus exporter for stackdriver,
+    written in Python with pluggable metric collectors.
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-stackdriver-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-stackdriver-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: stackdriver_exporter
+      rename: prometheus-stackdriver-exporter
+
+dirs:
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et

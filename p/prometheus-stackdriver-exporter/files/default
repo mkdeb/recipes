@@ -1,0 +1,5 @@
+# Defaults for prometheus-stackdriver-exporter initscript
+# sourced by /etc/init.d/prometheus-stackdriver-exporter
+
+# Arguments for prometheus-stackdriver-exporter daemon
+DAEMON_ARGS=""
