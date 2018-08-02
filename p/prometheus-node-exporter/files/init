@@ -29,7 +29,7 @@ HELPER="/usr/bin/daemon"
 HELPER_ARGS="--name=$NAME --output=$LOGFILE --pidfile=$PIDFILE --user=$USER:$GROUP"
 
 do_start_prepare() {
-    install -d 0755 -o $USER -g $GROUP $(dirname $PIDFILE)
+    install -m 0755 -o $USER -g $GROUP -d $(dirname $PIDFILE)
 }
 
 do_start_cmd() {
