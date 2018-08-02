@@ -18,8 +18,7 @@ control:
   - libc6
 
   description: |
-    Prometheus exporter for stackdriver,
-    written in Python with pluggable metric collectors.
+    Prometheus exporter for stackdriver
   section: net
 
 install:
