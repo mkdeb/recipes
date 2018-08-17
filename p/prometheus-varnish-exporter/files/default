@@ -1,0 +1,5 @@
+# Defaults for prometheus-varnish-exporter initscript
+# sourced by /etc/init.d/prometheus-varnish-exporter
+
+# Arguments for prometheus-varnish-exporter daemon
+DAEMON_ARGS=""
