@@ -1,0 +1,5 @@
+# Defaults for prometheus-elasticsearch-exporter initscript
+# sourced by /etc/init.d/prometheus-elasticsearch-exporter
+
+# Arguments for prometheus-elasticsearch-exporter daemon
+DAEMON_ARGS=""
