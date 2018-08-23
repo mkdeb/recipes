@@ -1,0 +1,43 @@
+---
+version: 1
+
+name: prometheus-nrpe-exporter
+description: Prometheus nrpe exporter
+homepage: https://prometheus.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/RobustPerception/nrpe_exporter/releases/download/{{ .Version }}/nrpe_exporter-{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+  description: |
+    Prometheus exporter for nrpe
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-nrpe-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-nrpe-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: nrpe_exporter
+
+dirs:
+- /var/lib/prometheus
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et
