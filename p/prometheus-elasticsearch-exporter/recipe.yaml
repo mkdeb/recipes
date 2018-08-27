@@ -2,7 +2,7 @@
 version: 1
 
 name: prometheus-elasticsearch-exporter
-description: Prometheus exporter for elasticsearch metrics
+description: Prometheus exporter for Elasticsearch metrics
 homepage: https://prometheus.io/
 
 maintainer: Recipes Maintainers <recipes@mkdeb.sh>
@@ -23,7 +23,7 @@ control:
   - daemon
   - libc6
   description: |
-    Simple server that scrapes elasticsearch stats and exports them via HTTP for
+    Simple server that scrapes Elasticsearch stats and exports them via HTTP for
     Prometheus consumption
   section: net
 
