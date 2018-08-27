@@ -1,0 +1,5 @@
+# Defaults for prometheus-nrpe-exporter initscript
+# sourced by /etc/init.d/prometheus-nrpe-exporter
+
+# Arguments for prometheus-nrpe-exporter daemon
+DAEMON_ARGS=""
