@@ -2,7 +2,7 @@
 version: 1
 
 name: prometheus-nrpe-exporter
-description: Prometheus nrpe exporter
+description: Prometheus NRPE exporter
 homepage: https://prometheus.io/
 
 maintainer: Recipes Maintainers <recipes@mkdeb.sh>
