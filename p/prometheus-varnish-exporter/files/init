@@ -9,12 +9,12 @@ fi
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Prometheus exporter for varnish
-# Description:       Prometheus exporter for varnish
+# Short-Description: Prometheus exporter for Varnish
+# Description:       Prometheus exporter for Varnish
 ### END INIT INFO
 
 NAME="prometheus-varnish-exporter"
-DESC="Prometheus exporter for varnish"
+DESC="Prometheus exporter for Varnish"
 USER="prometheus"
 GROUP="varnish"
 

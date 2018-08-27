@@ -2,7 +2,7 @@
 version: 1
 
 name: prometheus-varnish-exporter
-description: Prometheus exporter for varnish
+description: Prometheus exporter for Varnish
 homepage: https://github.com/jonnenauha/prometheus_varnish_exporter
 
 maintainer: Recipes Maintainers <recipes@mkdeb.sh>
@@ -20,7 +20,7 @@ control:
   - daemon
   - libc6
   description: |
-    Prometheus exporter for varnish,
+    Prometheus exporter for Varnish,
     written in Go with pluggable metric collectors.
   section: net
 
