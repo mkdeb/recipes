@@ -1,0 +1,49 @@
+---
+version: 1
+
+name: prometheus-elasticsearch-exporter
+description: Prometheus exporter for Elasticsearch metrics
+homepage: https://prometheus.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v{{ .Version }}/elasticsearch_exporter-{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+    arm64: arm64
+    armel: armv6
+    armhf: armv7
+    i386: "386"
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+  description: |
+    Simple server that scrapes Elasticsearch stats and exports them via HTTP for
+    Prometheus consumption
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-elasticsearch-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-elasticsearch-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: elasticsearch_exporter
+      rename: prometheus-elasticsearch-exporter
+
+dirs:
+- /var/lib/prometheus
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et
