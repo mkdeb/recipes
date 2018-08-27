@@ -1,0 +1,46 @@
+---
+version: 1
+
+name: prometheus-varnish-exporter
+description: Prometheus exporter for Varnish
+homepage: https://github.com/jonnenauha/prometheus_varnish_exporter
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/jonnenauha/prometheus_varnish_exporter/releases/download/{{ .Version }}/prometheus_varnish_exporter-{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+    i386: "386"
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+  description: |
+    Prometheus exporter for Varnish,
+    written in Go with pluggable metric collectors.
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-varnish-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-varnish-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: prometheus_varnish_exporter
+      rename: prometheus-varnish-exporter
+
+dirs:
+- /var/log/prometheus
+- /var/lib/prometheus
+
+# vim: ts=2 sw=2 et
