@@ -1,0 +1,48 @@
+---
+version: 1
+
+name: m3db-node
+description: M3DB storage instance (m3dbnode) for timeseries storage.
+homepage: https://github.com/m3db/m3
+
+maintainer: Guillaume Durand <guillaume.durand@happn.com>
+
+source:
+  url: https://github.com/m3db/m3/releases/download/v{{ .Version }}/m3_{{ .Version }}_linux_{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+  description: |
+    M3DB storage instance (m3dbnode) for timeseries storage.
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: m3db-node
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: m3db-node
+    /etc/m3db:
+    - pattern: node_config.yaml
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: m3dbnode
+
+dirs:
+- /etc/m3db
+- /var/lib/m3db
+- /var/lib/m3kv
+- /var/log/m3db
+- /var/run/m3db
+
+# vim: ts=2 sw=2 et

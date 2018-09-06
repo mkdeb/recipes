@@ -1,0 +1,47 @@
+#!/bin/sh
+# kFreeBSD do not accept scripts as interpreters, using #!/bin/sh and sourcing.
+if [ true != "$INIT_D_SCRIPT_SOURCED" ] ; then
+    set "$0" "$@"; INIT_D_SCRIPT_SOURCED=true . /lib/init/init-d-script
+fi
+### BEGIN INIT INFO
+# Provides:          m3db-coordinator
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: m3coordinator for writing and querying tagged metrics, as well as managing cluster topology and runtime configuration.
+# Description:       m3coordinator for writing and querying tagged metrics, as well as managing cluster topology and runtime configuration.
+### END INIT INFO
+
+NAME="m3db-coordinator"
+DESC="m3coordinator for writing and querying tagged metrics, as well as managing cluster topology and runtime configuration."
+USER="m3db"
+GROUP="m3db"
+
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+DAEMON=/usr/bin/m3coordinator
+
+LOGFILE="/var/log/m3db/coordinator.log"
+PIDFILE="/var/run/m3db/coordinator.pid"
+
+HELPER="/usr/bin/daemon"
+HELPER_ARGS="--name=$NAME --output=$LOGFILE --pidfile=$PIDFILE --user=$USER:$GROUP"
+
+do_start_prepare() {
+    install -m 0755 -o $USER -g $GROUP -d $(dirname $PIDFILE)
+}
+
+do_start_cmd() {
+    $HELPER $HELPER_ARGS --running && return 1
+    $HELPER $HELPER_ARGS -- $DAEMON $DAEMON_ARGS || return 2
+}
+
+do_stop_cmd() {
+    $HELPER $HELPER_ARGS --running || return 1
+    $HELPER $HELPER_ARGS --stop || return 2
+    sleep 2s
+    $HELPER $HELPER_ARGS --running && return 2
+}
+
+# vim: ft=sh ts=4 sw=4 et

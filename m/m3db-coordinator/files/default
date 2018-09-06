@@ -1,0 +1,5 @@
+# Defaults for m3db-coordinator initscript
+# sourced by /etc/init.d/m3db-coordinator
+
+# Arguments for m3db-coordinator daemon
+DAEMON_ARGS="-f /etc/m3db/coordinator_config.yaml"

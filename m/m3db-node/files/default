@@ -1,0 +1,5 @@
+# Defaults for m3db-node initscript
+# sourced by /etc/init.d/m3db-node
+
+# Arguments for m3db-node daemon
+DAEMON_ARGS="-f /etc/m3db/node_config.yaml"

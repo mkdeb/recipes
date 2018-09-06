@@ -1,0 +1,46 @@
+---
+version: 1
+
+name: m3db-coordinator
+description: m3coordinator for writing and querying tagged metrics, as well as managing cluster topology and runtime configuration.
+homepage: https://github.com/m3db/m3
+
+maintainer: Guillaume Durand <guillaume.durand@happn.com>
+
+source:
+  url: https://github.com/m3db/m3/releases/download/v{{ .Version }}/m3_{{ .Version }}_linux_{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+  description: |
+    m3coordinator for writing and querying tagged metrics, as well as managing cluster topology and runtime configuration.
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: m3db-coordinator
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: m3db-coordinator
+    /etc/m3db:
+    - pattern: coordinator_config.yaml
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: m3coordinator
+
+dirs:
+- /etc/m3db
+- /var/log/m3db
+- /var/run/m3db
+
+# vim: ts=2 sw=2 et

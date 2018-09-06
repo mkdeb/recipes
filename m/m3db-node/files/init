@@ -1,0 +1,48 @@
+#!/bin/sh
+# kFreeBSD do not accept scripts as interpreters, using #!/bin/sh and sourcing.
+if [ true != "$INIT_D_SCRIPT_SOURCED" ] ; then
+    set "$0" "$@"; INIT_D_SCRIPT_SOURCED=true . /lib/init/init-d-script
+fi
+### BEGIN INIT INFO
+# Provides:          m3db-node
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: M3DB storage instance (m3dbnode) for timeseries storage.
+# Description:       M3DB storage instance (m3dbnode) for timeseries storage.
+### END INIT INFO
+
+NAME="m3db-node"
+DESC="M3DB storage instance (m3dbnode) for timeseries storage."
+USER="m3db"
+GROUP="m3db"
+
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+DAEMON=/usr/bin/m3dbnode
+
+LOGFILE="/var/log/m3db/node.log"
+PIDFILE="/var/run/m3db/node.pid"
+
+HELPER="/usr/bin/daemon"
+HELPER_ARGS="--name=$NAME --output=$LOGFILE --pidfile=$PIDFILE --user=$USER:$GROUP"
+
+do_start_prepare() {
+    install -m 0755 -o $USER -g $GROUP -d $(dirname $PIDFILE)
+    ulimit -n 50000
+}
+
+do_start_cmd() {
+    $HELPER $HELPER_ARGS --running && return 1
+    $HELPER $HELPER_ARGS -- $DAEMON $DAEMON_ARGS || return 2
+}
+
+do_stop_cmd() {
+    $HELPER $HELPER_ARGS --running || return 1
+    $HELPER $HELPER_ARGS --stop || return 2
+    sleep 2s
+    $HELPER $HELPER_ARGS --running && return 2
+}
+
+# vim: ft=sh ts=4 sw=4 et
