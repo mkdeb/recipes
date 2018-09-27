@@ -2,10 +2,10 @@
 version: 1
 
 name: prometheus-blackbox-exporter
-description: Prometheus exporter for blackbox
-homepage: https://prometheus.io/
+description: The blackbox exporter allows blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP.
+homepage: https://github.com/prometheus/blackbox_exporter
 
-maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+maintainer: Guillaume Durand <guillaume.durand@happn.fr>
 
 source:
   url: https://github.com/prometheus/blackbox_exporter/releases/download/v{{ .Version }}/blackbox_exporter-{{ .Version }}.linux-{{ .Arch }}.tar.gz
@@ -23,8 +23,7 @@ control:
   - daemon
   - libc6
   description: |
-    Prometheus exporter for blackbox,
-    written in Go with pluggable metric collectors.
+    The blackbox exporter allows blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP.
   section: net
 
 install:
@@ -40,9 +39,11 @@ install:
   upstream:
     /usr/bin:
     - pattern: blackbox_exporter
+    /etc/prometheus/blackbox:
+    - pattern: blackbox.yml
 
 dirs:
-- /var/lib/prometheus/blackbox-exporter
+- /var/lib/prometheus
 - /var/log/prometheus
 
 # vim: ts=2 sw=2 et

@@ -2,4 +2,4 @@
 # sourced by /etc/init.d/prometheus-blackbox-exporter
 
 # Arguments for prometheus-blackbox-exporter daemon
-DAEMON_ARGS=""
+DAEMON_ARGS="--config.file="/etc/prometheus/blackbox/blackbox.yml""
