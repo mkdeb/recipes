@@ -1,0 +1,43 @@
+---
+version: 1
+
+name: prometheus-redis-exporter
+description: Prometheus Redis exporter
+homepage: https://github.com/oliver006/redis_exporter
+
+maintainer: Guillaume Durand <guillaume.durand@happn.com>
+
+source:
+  url: https://github.com/oliver006/redis_exporter/releases/download/v{{ .Version }}/redis_exporter-v{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+
+control:
+  depends:
+  - adduser
+  - daemon
+  - libc6
+  description: |
+    Prometheus exporter for Redis
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-redis-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-redis-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: redis_exporter
+
+dirs:
+- /var/lib/prometheus
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et
