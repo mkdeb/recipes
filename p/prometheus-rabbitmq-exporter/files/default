@@ -1,0 +1,8 @@
+# Defaults for prometheus-rabbitmq-exporter initscript
+# sourced by /etc/init.d/prometheus-rabbitmq-exporter
+
+# Environment variables for prometheus-rabbitmq-exporter daemon
+export RABBIT_USER=admin
+export RABBIT_PASSWORD=password
+export RABBIT_EXPORTERS=exchange,node,overview,queue,connections
+export PUBLISH_PORT=9090

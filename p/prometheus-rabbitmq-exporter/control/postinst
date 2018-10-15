@@ -1,0 +1,47 @@
+#!/bin/sh
+# postinst script for prometheus-rabbitmq-exporter
+
+set -e
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <postinst> `abort-remove'
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see https://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+set_perms() {
+    if ! dpkg-statoverride --list "$4" >/dev/null; then
+        dpkg-statoverride --update --add "$@"
+    fi
+}
+
+case "$1" in
+    configure)
+        if ! getent passwd prometheus >/dev/null; then
+            adduser --quiet --system --group --no-create-home --no-create-home prometheus
+        fi
+
+        set_perms prometheus prometheus 0755 /var/log/prometheus
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
+    update-rc.d prometheus-rabbitmq-exporter defaults >/dev/null
+    invoke-rc.d prometheus-rabbitmq-exporter start || exit $?
+fi
+
+exit 0
