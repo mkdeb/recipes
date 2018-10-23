@@ -25,10 +25,6 @@ control:
 
 install:
   recipe:
-#    /etc/default:
-#    - pattern: default
-#      rename: prometheus-consul-exporter
-#      conffile: true
     /etc/init.d:
     - pattern: init
       rename: prometheus-consul-exporter
