@@ -1,0 +1,39 @@
+---
+version: 1
+
+name: prometheus-consul-exporter
+description: Prometheus exporter for Consul
+homepage: https://github.com/prometheus/consul_exporter/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/prometheus/consul_exporter/releases/download/v{{ .Version }}/consul_exporter-{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+    arm64: arm64
+    armel: armv6
+    armhf: armv7
+    i386: "386"
+
+control:
+  description: |
+    Prometheus exporter for Consul,
+    export Consul service health to Prometheus.
+  section: net
+
+install:
+  recipe:
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-consul-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: consul_exporter
+
+dirs:
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et
