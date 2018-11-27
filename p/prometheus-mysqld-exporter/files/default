@@ -1,0 +1,5 @@
+# Defaults for prometheus-mysqld-exporter initscript
+# sourced by /etc/init.d/prometheus-mysqld-exporter
+
+# Arguments for prometheus-mysqld-exporter daemon
+DAEMON_ARGS=""
