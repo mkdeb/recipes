@@ -1,0 +1,40 @@
+---
+version: 1
+
+name: prometheus-rabbitmq-exporter
+description: Prometheus exporter for rabbitmq
+homepage: https://github.com/kbudde/rabbitmq_exporter
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://github.com/kbudde/rabbitmq_exporter/releases/download/v{{ .Version }}/rabbitmq_exporter-{{ .Version }}.linux-{{ .Arch }}.tar.gz
+  strip: 1
+  arch-mapping:
+    amd64: amd64
+    i386: "386"
+
+control:
+  description: |
+    Prometheus exporter for rabbitmq,
+    written in Go with pluggable metric collectors.
+  section: net
+
+install:
+  recipe:
+    /etc/default:
+    - pattern: default
+      rename: prometheus-rabbitmq-exporter
+      conffile: true
+    /etc/init.d:
+    - pattern: init
+      rename: prometheus-rabbitmq-exporter
+      conffile: true
+  upstream:
+    /usr/bin:
+    - pattern: rabbitmq_exporter
+
+dirs:
+- /var/log/prometheus
+
+# vim: ts=2 sw=2 et
