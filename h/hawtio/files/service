@@ -1,0 +1,14 @@
+[Unit]
+Description=Java web console
+After=network.target
+Documentation=http://hawt.io/docs/index.html
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/java -jar /usr/share/hawtio/hawtio-app.jar
+User=hawtio
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
