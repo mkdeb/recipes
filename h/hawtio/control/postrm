@@ -28,7 +28,7 @@ case "$1" in
     ;;
 
     purge)
-        rm -rf /etc/hawtio.d /var/lib/hawtio
+        rm -rf /var/lib/hawtio
     ;;
 
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
