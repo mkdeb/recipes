@@ -1,0 +1,41 @@
+---
+version: 1
+
+name: hawtio
+description: A modular web console for managing your Java stuff
+homepage: https://hawtio.io/
+
+maintainer: Recipes Maintainers <recipes@mkdeb.sh>
+
+source:
+  url: https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/{{ .Version }}/hawtio-app-{{ .Version }}.jar
+  type: file
+
+control:
+  depends:
+  - java8-runtime-headless
+  description: |
+    Hawtio consists of 2 parts: an AngularJS applicaton and a Java backend,
+    which proxies the communication between the frontend and Jolokia endpoints.
+    The frontend has access to all JMX attributes and operations available in
+    Java applications running locally and remotely.
+  section: java
+
+install:
+  recipe:
+    /lib/systemd/system:
+    - pattern: service
+      rename: hawtio.service
+      conffile: true
+  upstream:
+    /usr/share/hawtio:
+    - pattern: "hawtio-app-*.jar"
+      rename: hawtio-app.jar
+
+links:
+  /etc/systemd/system/hawtio.service: /lib/systemd/system/hawtio.service
+
+dirs:
+- /var/lib/hawtio
+
+# vim: ts=2 sw=2 et

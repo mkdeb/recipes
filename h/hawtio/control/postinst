@@ -1,0 +1,50 @@
+#!/bin/sh
+# postinst script for hawtio
+
+set -e
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <postinst> `abort-remove'
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see https://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+set_perms() {
+    if ! dpkg-statoverride --list "$4" >/dev/null; then
+        dpkg-statoverride --update --add "$@"
+    fi
+}
+
+case "$1" in
+    configure)
+        if ! getent passwd hawtio >/dev/null; then
+            adduser --quiet --system --group --home /var/lib/hawtio --no-create-home hawtio
+        fi
+
+        set_perms hawtio hawtio 0755 /var/lib/hawtio
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+if [ -x /usr/bin/deb-systemd-helper ]; then
+    if deb-systemd-helper --quiet was-enabled hawtio.service; then
+        deb-systemd-helper enable hawtio.service >/dev/null || true
+    else
+        deb-systemd-helper update-state hawtio.service >/dev/null || true
+    fi
+fi
+
+exit 0
